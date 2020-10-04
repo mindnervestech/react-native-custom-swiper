@@ -139,7 +139,7 @@ class Swiper extends React.Component {
 
   render() {
     return (
-      <View style={[this.props.style, { width: this.props.containerWidth }]}>
+      <View style={this.props.style}>
         <FlatList
           ref={flatList => {
             this.swiper = flatList;
@@ -167,14 +167,14 @@ class Swiper extends React.Component {
           <View
             style={[
               styles.IconStyle,
-              { left: 15, height: this.state.childViewHeight }
+              { left: 3, height: this.state.childViewHeight - 20 }
             ]}
           >
             <View style={styles.viewBtn}>
               <TouchableWithoutFeedback onPress={this._onPressBackBtn}>
                 <Image
                   style={styles.IconImageView}
-                  source={this.props.leftButtonImage}
+                  source={this.props.locale === 'en' ? this.props.leftButtonImage : this.props.rightButtonImage}
                 />
               </TouchableWithoutFeedback>
             </View>
@@ -186,14 +186,14 @@ class Swiper extends React.Component {
           <View
             style={[
               styles.IconStyle,
-              { right: 15, height: this.state.childViewHeight }
+              { right: 3, height: this.state.childViewHeight - 20 }
             ]}
           >
             <View style={styles.viewBtn}>
               <TouchableWithoutFeedback onPress={this._onPressNextBtn}>
                 <Image
                   style={styles.IconImageView}
-                  source={this.props.rightButtonImage}
+                  source={this.props.locale === 'en' ? this.props.rightButtonImage : this.props.leftButtonImage}
                 />
               </TouchableWithoutFeedback>
             </View>
@@ -219,8 +219,8 @@ const styles = StyleSheet.create({
     top: -8
   },
   IconImageView: {
-    width: 40,
-    height: 40
+    width: 30,
+    height: 30
   },
   viewBtn: {
     height: 60,
@@ -242,6 +242,7 @@ Swiper.propTypes = {
     PropTypes.number
   ]),
   backgroundColor: PropTypes.string,
+  locale: PropTypes.string,
   containerWidth: PropTypes.number,
   currentSelectIndex: PropTypes.number,
   leftButtonImage: Image.propTypes.source,
